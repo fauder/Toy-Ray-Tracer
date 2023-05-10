@@ -1,6 +1,7 @@
 #include <iostream>
 
 using std::cout;
+using std::cerr;
 
 int main()
 {
@@ -15,6 +16,7 @@ int main()
 
 	for( int y = image_height - 1; y >= 0; y-- )
 	{
+		cerr << "\rRemaining scanlines: " << y << std::flush;
 		for( int x = 0; x < image_width; x++ )
 		{
 			const auto r = ( double )x / ( image_width  - 1 );
