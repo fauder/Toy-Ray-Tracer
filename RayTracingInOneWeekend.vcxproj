@@ -122,8 +122,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>mkdir $(TargetDir)output
+$(TargetPath) &gt;  $(TargetDir)output\image.ppm
+$(TargetDir)output\image.ppm</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,8 +143,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>mkdir $(TargetDir)output
+$(TargetPath) &gt;  $(TargetDir)output\image.ppm
+$(TargetDir)output\image.ppm</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
