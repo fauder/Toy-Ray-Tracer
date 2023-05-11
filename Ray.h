@@ -34,4 +34,3 @@ private:
 	Point origin;
 	Vec3 direction;
 };
-

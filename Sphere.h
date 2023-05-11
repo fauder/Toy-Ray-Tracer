@@ -1,6 +1,6 @@
 #pragma once
 
-// Project Include
+// Project Includes.
 #include "Hittable.h"
 
 class Sphere : public Hittable
@@ -41,7 +41,8 @@ public:
 
 		hit_record.t      = root;
 		hit_record.point  = ray.At( root );
-		hit_record.normal = ( hit_record.point - sphere_center ) / sphere_radius;
+		const auto normal_outward = ( hit_record.point - sphere_center ) / sphere_radius;
+		hit_record.SetFaceNormal( ray.Direction(), normal_outward );
 
 		return true;
 	}
@@ -50,4 +51,3 @@ private:
 	const Point sphere_center;
 	const double sphere_radius;
 };
-
