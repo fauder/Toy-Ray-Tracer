@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <ostream>
 
 using std::sqrt;
 
@@ -99,6 +100,11 @@ public:
 	{
 		*this /= Length();
 		return *this;
+	}
+
+	inline std::ostream& Dump( std::ostream& ostream ) const
+	{
+		return ostream << data[ 0 ] << ' ' << data[ 1 ] << ' ' << data[ 2 ] << "\n";
 	}
 
 protected:
