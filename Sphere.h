@@ -24,17 +24,17 @@ public:
 		const auto& ray_direction = ray.Direction();
 		const auto oc = ray.Origin() - sphere_center;
 		const auto a = Dot( ray_direction, ray_direction );
-		const auto b = 2 * Dot( ray_direction, oc );
+		const auto halfB = Dot( ray_direction, oc );
 		const auto c = Dot( oc, oc ) - sphere_radius * sphere_radius;
-		const auto discriminant = b * b - 4 * a * c;
+		const auto discriminant = halfB * halfB - a * c;
 
 		if( discriminant < 0 )
 			return false;
 		const auto squareRootOfDeterminant = sqrt( discriminant );
-		auto root = ( -b - squareRootOfDeterminant ) / ( 2 * a );
+		auto root = ( -halfB - squareRootOfDeterminant ) / a;
 		if( root < tMin || root > tMax )
 		{
-			auto root = ( -b + squareRootOfDeterminant ) / ( 2 * a );
+			auto root = ( -halfB + squareRootOfDeterminant ) / a;
 			if( root < tMin || root > tMax )
 				return false;
 		}
