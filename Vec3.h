@@ -143,7 +143,7 @@ inline Vec3 operator/ ( const Vec3& left, const double scalar )
 
 inline double Dot( const Vec3& left, const Vec3& right )
 {
-	return left.X() * right.X() + left.Y() * right.Y() + left.Z() + right.Z();
+	return left.X() * right.X() + left.Y() * right.Y() + left.Z() * right.Z();
 }
 
 inline Vec3 Cross( const Vec3& left, const Vec3& right )
