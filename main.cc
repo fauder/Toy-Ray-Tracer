@@ -1,6 +1,7 @@
 // Project Includes.
 #include "Color.h"
 #include "Constants.h"
+#include "HittableList.h"
 #include "Ray.h"
 #include "Sphere.h"
 
@@ -10,14 +11,10 @@
 using std::cout;
 using std::cerr;
 
-Color RayColor( const Ray& ray )
+Color RayColor( const Ray& ray, const HittableList& object_list )
 {
-	const auto sphere_center = Point( 0, 0, -1 );
-	const auto sphere_radius = 0.5;
-	Sphere sphere( sphere_center, sphere_radius );
-
 	HitRecord hit_record;
-	if( sphere.IsHit( ray, 0, Constants::INFINITY, hit_record ) )
+	if( object_list.IsHit( ray, 0, Constants::INFINITY, hit_record ) )
 		return RemapNormalTo01Range( hit_record.normal );
 
 	const auto direction = ray.Direction().Normalized();
@@ -43,6 +40,11 @@ int main()
 	const auto offset_depth      = Vec3( 0, 0, viewport_focalLength );
 	const auto lowerLeftCorner   = origin - ( offset_horizontal / 2 ) - ( offset_vertical / 2 ) - offset_depth;
 
+	/* World */
+	HittableList object_list;
+	object_list.Add( std::make_shared< Sphere >( Point( 0, 0, -1 ), 0.5 ) );
+	object_list.Add( std::make_shared< Sphere >( Point( 0, -100.5, -1 ), 100 ) );
+
 	cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
 
 	for( int y = image_height - 1; y >= 0; y-- )
@@ -55,7 +57,7 @@ int main()
 
 			Ray ray( origin, lowerLeftCorner + ( u * offset_horizontal ) + ( v * offset_vertical ) - origin );
 
-			WriteColor( std::cout, RayColor( ray ) );
+			WriteColor( std::cout, RayColor( ray, object_list ) );
 		}
 	}
 

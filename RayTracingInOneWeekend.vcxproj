@@ -154,6 +154,7 @@ start $(TargetDir)output\image.ppm</Command>
   <ItemGroup>
     <ClInclude Include="Color.h" />
     <ClInclude Include="Hittable.h" />
+    <ClInclude Include="HittableList.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Constants.h" />
