@@ -124,7 +124,7 @@
     <PostBuildEvent>
       <Command>mkdir $(TargetDir)output
 $(TargetPath) &gt;  $(TargetDir)output\image.ppm
-$(TargetDir)output\image.ppm</Command>
+start $(TargetDir)output\image.ppm</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,7 +145,7 @@ $(TargetDir)output\image.ppm</Command>
     <PostBuildEvent>
       <Command>mkdir $(TargetDir)output
 $(TargetPath) &gt;  $(TargetDir)output\image.ppm
-$(TargetDir)output\image.ppm</Command>
+start $(TargetDir)output\image.ppm</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
