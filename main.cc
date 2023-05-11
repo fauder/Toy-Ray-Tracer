@@ -8,7 +8,7 @@
 using std::cout;
 using std::cerr;
 
-bool IsSphereHit( const Ray& ray, const Point sphere_center, const double sphere_radius )
+double IsSphereHit( const Ray& ray, const Point sphere_center, const double sphere_radius )
 {
 	const auto ray_direction = ray.Direction();
 	const auto oc = ray.Origin() - sphere_center;
@@ -17,24 +17,34 @@ bool IsSphereHit( const Ray& ray, const Point sphere_center, const double sphere
 	const auto c = Dot( oc, oc ) - sphere_radius * sphere_radius;
 	const auto discriminant = b * b - 4 * a * c;
 
-	return discriminant > 0;
+	if( discriminant < 0 )
+		return -1.0;
+	else
+		return ( -b - sqrt( discriminant ) ) / ( 2 * a );
 }
 
 Color RayColor( const Ray& ray )
 {
-	if( IsSphereHit( ray, Point( 0, 0, 1 ), 0.5 ) )
-		return Color( 1.0, 0.0, 0.0 );
+	const auto sphere_center = Point( 0, 0, -1 );
+	const auto sphere_radius = 0.5;
+
+	const auto t = IsSphereHit( ray, sphere_center, sphere_radius );
+	if( t > 0 )
+	{
+		const auto normal( ( ray.At( t ) - sphere_center ).Normalized() );
+		return 0.5 * ( normal + Vec3( 1, 1, 1 ) );
+	}
 
 	const auto direction = ray.Direction().Normalized();
-	const auto t = 0.5 * ( direction.Y() + 1.0 );
-	return ( 1.0 - t ) * Color( 1.0, 1.0, 1.0 ) + t * Color( 0.5, 0.7, 1.0 );
+	const auto lerpBy = 0.5 * ( direction.Y() + 1.0 );
+	return ( 1.0 - lerpBy ) * Color( 1.0, 1.0, 1.0 ) + lerpBy * Color( 0.5, 0.7, 1.0 );
 }
 
 int main()
 {
 	/* Image */
 	const auto aspectRatio  = 16.0 / 9.0;
-	const int  image_width  = 1200;
+	const int  image_width  = 400;
 	const int  image_height = static_cast< int >( image_width / aspectRatio );
 
 	/* Camera */
