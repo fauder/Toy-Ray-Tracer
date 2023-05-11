@@ -38,7 +38,7 @@ public:
 		return data[ i ];
 	}
 
-	Vec3 operator- ( const Vec3& rhs ) const
+	Vec3 operator- () const
 	{
 		return Vec3{ -data[ 0 ], -data[ 1 ], -data[ 2 ] };
 	}
