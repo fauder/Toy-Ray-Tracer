@@ -167,3 +167,8 @@ inline Vec3 Cross( const Vec3& left, const Vec3& right )
 		left.X() * right.Y() - left.Y() * right.X()
 	};
 }
+
+inline Vec3 RemapNormalTo01Range( const Vec3& normal )
+{
+	return 0.5 * ( normal + Vec3( 1, 1, 1 ) );
+}

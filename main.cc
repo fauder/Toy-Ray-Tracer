@@ -18,10 +18,7 @@ Color RayColor( const Ray& ray )
 
 	HitRecord hit_record;
 	if( sphere.IsHit( ray, 0, Constants::INFINITY, hit_record ) )
-	{
-		hit_record.normal.Dump( cerr );
-		return 0.5 * ( hit_record.normal + Vec3( 1, 1, 1 ) );
-	}
+		return RemapNormalTo01Range( hit_record.normal );
 
 	const auto direction = ray.Direction().Normalized();
 	const auto lerpBy = 0.5 * ( direction.Y() + 1.0 );
