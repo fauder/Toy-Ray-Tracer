@@ -13,6 +13,10 @@ public:
 		: Vec3()
 	{}
 
+	Color( Vec3&& vec )
+		: Vec3( vec.X(), vec.Y(), vec.Z() )
+	{}
+
 	Color( const double r, const double g, const double b )
 		: Vec3( r, g, b )
 	{}
