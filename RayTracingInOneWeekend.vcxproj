@@ -151,6 +151,10 @@ $(TargetDir)output\image.ppm</Command>
   <ItemGroup>
     <ClCompile Include="main.cc" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Vec3.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,3 +1,7 @@
+// Project Includes.
+#include "Color.h"
+
+// std Includes.
 #include <iostream>
 
 using std::cout;
@@ -23,11 +27,9 @@ int main()
 			const auto g = ( double )y / ( image_height - 1 );
 			const auto b = 0.25;
 
-			const int rInt = static_cast< int >( 255.999 * r );
-			const int gInt = static_cast< int >( 255.999 * g );
-			const int bInt = static_cast< int >( 255.999 * b );
+			Color c = Color( r, g, b );
 
-			cout << rInt << ' ' << gInt << ' ' << bInt << "\n";
+			WriteColor( std::cout, c );
 		}
 	}
 
