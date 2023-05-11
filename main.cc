@@ -1,6 +1,8 @@
 // Project Includes.
 #include "Color.h"
+#include "Constants.h"
 #include "Ray.h"
+#include "Sphere.h"
 
 // std Includes.
 #include <iostream>
@@ -8,31 +10,17 @@
 using std::cout;
 using std::cerr;
 
-double IsSphereHit( const Ray& ray, const Point sphere_center, const double sphere_radius )
-{
-	const auto ray_direction = ray.Direction();
-	const auto oc = ray.Origin() - sphere_center;
-	const auto a = Dot( ray_direction, ray_direction );
-	const auto b = 2 * Dot( ray_direction, oc );
-	const auto c = Dot( oc, oc ) - sphere_radius * sphere_radius;
-	const auto discriminant = b * b - 4 * a * c;
-
-	if( discriminant < 0 )
-		return -1.0;
-	else
-		return ( -b - sqrt( discriminant ) ) / ( 2 * a );
-}
-
 Color RayColor( const Ray& ray )
 {
 	const auto sphere_center = Point( 0, 0, -1 );
 	const auto sphere_radius = 0.5;
+	Sphere sphere( sphere_center, sphere_radius );
 
-	const auto t = IsSphereHit( ray, sphere_center, sphere_radius );
-	if( t > 0 )
+	HitRecord hit_record;
+	if( sphere.IsHit( ray, 0, Constants::INFINITY, hit_record ) )
 	{
-		const auto normal( ( ray.At( t ) - sphere_center ).Normalized() );
-		return 0.5 * ( normal + Vec3( 1, 1, 1 ) );
+		hit_record.normal.Dump( cerr );
+		return 0.5 * ( hit_record.normal + Vec3( 1, 1, 1 ) );
 	}
 
 	const auto direction = ray.Direction().Normalized();
