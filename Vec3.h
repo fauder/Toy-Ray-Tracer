@@ -103,9 +103,15 @@ public:
 		return *this;
 	}
 
-	inline std::ostream& Dump( std::ostream& ostream ) const
+	std::ostream& Dump( std::ostream& ostream ) const
 	{
 		return ostream << data[ 0 ] << ' ' << data[ 1 ] << ' ' << data[ 2 ] << "\n";
+	}
+
+	bool IsNearZero() const
+	{
+		static constexpr double epsilon = std::numeric_limits< double >::epsilon();
+		return std::fabs( data[ 0 ] < epsilon ) && std::fabs( data[ 1 ] < epsilon ) && std::fabs( data[ 2 ] < epsilon );
 	}
 
 protected:

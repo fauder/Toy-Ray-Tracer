@@ -6,20 +6,15 @@
 class Sphere : public Hittable
 {
 public:
-	Sphere()
-		:
-		sphere_center( Vec3( 0, 0, 0 ) ),
-		sphere_radius( 0 )
-	{}
-
-	Sphere( const Vec3& center, const double radius )
+	Sphere( const Vec3& center, const double radius, std::shared_ptr< Material > material )
 		:
 		sphere_center( center ),
-		sphere_radius( radius )
+		sphere_radius( radius ),
+		material( material )
 	{}
 
 
-	bool IsHit( const Ray& ray, const double tMin, const double tMax, HitRecord& hit_record ) const override
+	bool IsHit( const Ray& ray, const double t_min, const double t_max, HitRecord& hit_record ) const override
 	{
 		const auto& ray_direction = ray.Direction();
 		const auto oc = ray.Origin() - sphere_center;
@@ -32,15 +27,16 @@ public:
 			return false;
 		const auto squareRootOfDeterminant = sqrt( discriminant );
 		auto root = ( -halfB - squareRootOfDeterminant ) / a;
-		if( root < tMin || root > tMax )
+		if( root < t_min || root > t_max )
 		{
 			auto root = ( -halfB + squareRootOfDeterminant ) / a;
-			if( root < tMin || root > tMax )
+			if( root < t_min || root > t_max )
 				return false;
 		}
 
-		hit_record.t      = root;
-		hit_record.point  = ray.At( root );
+		hit_record.t              = root;
+		hit_record.point          = ray.At( root );
+		hit_record.material       = material;
 		const auto normal_outward = ( hit_record.point - sphere_center ) / sphere_radius;
 		hit_record.SetFaceNormal( ray.Direction(), normal_outward );
 
@@ -50,4 +46,5 @@ public:
 private:
 	const Point sphere_center;
 	const double sphere_radius;
+	const std::shared_ptr< Material > material;
 };
