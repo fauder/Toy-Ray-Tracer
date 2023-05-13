@@ -25,16 +25,28 @@ namespace Utility
 		return distribution( generator );
 	}
 
-	inline Vec3 Random_Vector()
+	inline double Random_Double( const double min, const double max )
+	{
+		static std::uniform_real_distribution< double > distribution( min, max );
+		static std::mt19937 generator;
+		return distribution( generator );
+	}
+
+	inline Vec3 Random_Vector_Normalized()
 	{
 		return Vec3( Random_Double_Normalized(), Random_Double_Normalized(), Random_Double_Normalized() );
 	}
 
-	inline Vec3 Random_Vector_InUnitSphere()
+	inline Vec3 Random_Vector( const double min, const double max )
 	{
-		Vec3 vector_random = Random_Vector();
+		return Vec3( Random_Double( min, max ), Random_Double( min, max ), Random_Double( min, max ) );
+	}
+
+	inline Vec3 Random_Vector_In_UnitSphere()
+	{
+		Vec3 vector_random = Random_Vector( -1.0, +1.0 );
 		while( vector_random.LengthSquared() > 1 )
-			vector_random = Random_Vector();
+			vector_random = Random_Vector( -1.0, +1.0 );
 
 		return vector_random;
 	}
