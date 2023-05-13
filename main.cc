@@ -16,6 +16,10 @@ using std::cerr;
 Color RayColor( const Ray& ray, const HittableList& object_list, const int bounce_count_max, const double reflection_factor )
 {
 	HitRecord hit_record;
+
+	if( bounce_depth_current <= 0 )
+		return Color();
+
 	if( object_list.IsHit( ray, 0.001, Utility::INFINITY, hit_record ) )
 	{
 		//return RemapNormalTo01Range( hit_record.normal ); // Use this to visualize the Normals.
