@@ -5,6 +5,7 @@
 #include "HittableList.h"
 #include "Ray.h"
 #include "Sphere.h"
+#include "Utility.h"
 
 // std Includes.
 #include <iostream>
@@ -26,9 +27,10 @@ Color RayColor( const Ray& ray, const HittableList& object_list )
 int main()
 {
 	/* Image */
-	const auto aspectRatio  = 16.0 / 9.0;
-	const int  image_width  = 400;
-	const int  image_height = static_cast< int >( image_width / aspectRatio );
+	const auto aspectRatio      = 16.0 / 9.0;
+	const int  image_width      = 400;
+	const int  image_height     = static_cast< int >( image_width / aspectRatio );
+	const int  samples_perPixel = 100;
 
 	/* Camera */
 	Camera camera( aspectRatio, 2.0, 1.0, Vec3{} );
@@ -45,10 +47,15 @@ int main()
 		cerr << "\rRemaining scanlines: " << y << std::flush;
 		for( int x = 0; x < image_width; x++ )
 		{
-			const auto u = ( double )x / ( image_width  - 1 );
-			const auto v = ( double )y / ( image_height - 1 );
+			Color pixel_color_accummulated;
+			for( int i = 0; i < samples_perPixel; i++ )
+			{
+				const auto u = ( x + Utility::Random_Double_Normalized() ) / ( image_width - 1 );
+				const auto v = ( y + Utility::Random_Double_Normalized() ) / ( image_height - 1 );
+				pixel_color_accummulated += RayColor( camera.GetRay( u, v ), object_list );
+			}
 
-			WriteColor( std::cout, RayColor( camera.GetRay( u, v ), object_list ) );
+			WriteColor( std::cout, pixel_color_accummulated, samples_perPixel );
 		}
 	}
 

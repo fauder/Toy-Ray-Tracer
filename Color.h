@@ -1,6 +1,7 @@
 #pragma once
 
 // Project Includes.
+#include "Utility.h"
 #include "Vec3.h"
 
 // std Includes.
@@ -26,11 +27,15 @@ public:
 	double B() const { return Z(); }
 };
 
-void WriteColor( std::ostream& stream, const Color& color )
+void WriteColor( std::ostream& stream, const Color& color, const int samplesPerPixel )
 {
-	const int rInt = static_cast< int >( 255.999 * color.R() );
-	const int gInt = static_cast< int >( 255.999 * color.G() );
-	const int bInt = static_cast< int >( 255.999 * color.B() );
+	const double r = color.R() / samplesPerPixel;
+	const double g = color.G() / samplesPerPixel;
+	const double b = color.B() / samplesPerPixel;
+
+	const int rInt = static_cast< int >( 255.999 * Utility::Clamp( r, 0.0, 0.999 ) );
+	const int gInt = static_cast< int >( 255.999 * Utility::Clamp( g, 0.0, 0.999 ) );
+	const int bInt = static_cast< int >( 255.999 * Utility::Clamp( b, 0.0, 0.999 ) );
 
 	stream << rInt << ' ' << gInt << ' ' << bInt << "\n";
 }
