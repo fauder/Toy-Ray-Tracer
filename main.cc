@@ -13,7 +13,7 @@
 using std::cout;
 using std::cerr;
 
-Color RayColor( const Ray& ray, const HittableList& object_list, const int bounce_count_max, const double reflection_factor )
+Color RayColor( const Ray& ray, const HittableList& object_list, const int bounce_depth_current, const double reflection_factor )
 {
 	HitRecord hit_record;
 
@@ -24,7 +24,7 @@ Color RayColor( const Ray& ray, const HittableList& object_list, const int bounc
 	{
 		//return RemapNormalTo01Range( hit_record.normal ); // Use this to visualize the Normals.
 		const auto target = hit_record.point + hit_record.normal + Utility::Random_Vector_InUnitSphere();
-		return reflection_factor * RayColor( Ray( hit_record.point, target - hit_record.point ), object_list, bounce_count_max - 1, reflection_factor );
+		return reflection_factor * RayColor( Ray( hit_record.point, target - hit_record.point ), object_list, bounce_depth_current - 1, reflection_factor );
 	}
 
 	const auto direction = ray.Direction().Normalized();
