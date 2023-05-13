@@ -1,5 +1,9 @@
 #pragma once
 
+// Project Includes.
+#include "Vec3.h"
+
+// std Includes.
 #include <limits>
 #include <random>
 
@@ -19,6 +23,20 @@ namespace Utility
 		static std::uniform_real_distribution< double > distribution( 0.0, 1.0 );
 		static std::mt19937 generator;
 		return distribution( generator );
+	}
+
+	inline Vec3 Random_Vector()
+	{
+		return Vec3( Random_Double_Normalized(), Random_Double_Normalized(), Random_Double_Normalized() );
+	}
+
+	inline Vec3 Random_Vector_InUnitSphere()
+	{
+		Vec3 vector_random = Random_Vector();
+		while( vector_random.LengthSquared() > 1 )
+			vector_random = Random_Vector();
+
+		return vector_random;
 	}
 
 	inline double DegreesToRadians( double degrees )
