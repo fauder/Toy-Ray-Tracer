@@ -29,9 +29,10 @@ public:
 
 void WriteColor( std::ostream& stream, const Color& color, const int samplesPerPixel )
 {
-	const double r = color.R() / samplesPerPixel;
-	const double g = color.G() / samplesPerPixel;
-	const double b = color.B() / samplesPerPixel;
+	 // Divide the color by the number of samples and gamma-correct for gamma = 2.0.
+	const double r = sqrt( color.R() / samplesPerPixel );
+	const double g = sqrt( color.G() / samplesPerPixel );
+	const double b = sqrt( color.B() / samplesPerPixel );
 
 	const int rInt = static_cast< int >( 255.999 * Utility::Clamp( r, 0.0, 0.999 ) );
 	const int gInt = static_cast< int >( 255.999 * Utility::Clamp( g, 0.0, 0.999 ) );
