@@ -51,6 +51,11 @@ namespace Utility
 		return vector_random;
 	}
 
+	inline Vec3 Random_Vector_On_UnitSphere()
+	{
+		return Random_Vector_In_UnitSphere().Normalized();
+	}
+
 	inline double DegreesToRadians( double degrees )
 	{
 		return degrees * PI / 180.0;

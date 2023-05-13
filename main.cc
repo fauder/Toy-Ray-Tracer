@@ -23,7 +23,7 @@ Color RayColor( const Ray& ray, const HittableList& object_list, const int bounc
 	if( object_list.IsHit( ray, 0.001, Utility::INFINITY, hit_record ) )
 	{
 		//return RemapNormalTo01Range( hit_record.normal ); // Use this to visualize the Normals.
-		const auto target = hit_record.point + hit_record.normal + Utility::Random_Vector_InUnitSphere();
+		const auto target = hit_record.point + hit_record.normal + Utility::Random_Vector_On_UnitSphere();
 		return reflection_factor * RayColor( Ray( hit_record.point, target - hit_record.point ), object_list, bounce_depth_current - 1, reflection_factor );
 	}
 
