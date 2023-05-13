@@ -1,6 +1,6 @@
 // Project Includes.
 #include "Color.h"
-#include "Constants.h"
+#include "Utility.h"
 #include "HittableList.h"
 #include "Ray.h"
 #include "Sphere.h"
@@ -14,7 +14,7 @@ using std::cerr;
 Color RayColor( const Ray& ray, const HittableList& object_list )
 {
 	HitRecord hit_record;
-	if( object_list.IsHit( ray, 0, Constants::INFINITY, hit_record ) )
+	if( object_list.IsHit( ray, 0, Utility::INFINITY, hit_record ) )
 		return RemapNormalTo01Range( hit_record.normal );
 
 	const auto direction = ray.Direction().Normalized();
@@ -38,7 +38,7 @@ int main()
 	const auto offset_horizontal = Vec3( viewport_width, 0, 0 );
 	const auto offset_vertical   = Vec3( 0, viewport_height, 0 );
 	const auto offset_depth      = Vec3( 0, 0, viewport_focalLength );
-	const auto lowerLeftCorner   = origin - ( offset_horizontal / 2 ) - ( offset_vertical / 2 ) - offset_depth;
+	const auto lowerLeftCorner = origin - ( offset_horizontal / 2 ) - ( offset_vertical / 2 ) - offset_depth;
 
 	/* World */
 	HittableList object_list;
