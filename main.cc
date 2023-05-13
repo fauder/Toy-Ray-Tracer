@@ -1,4 +1,5 @@
 // Project Includes.
+#include "Camera.h"
 #include "Color.h"
 #include "Utility.h"
 #include "HittableList.h"
@@ -30,15 +31,7 @@ int main()
 	const int  image_height = static_cast< int >( image_width / aspectRatio );
 
 	/* Camera */
-	const auto viewport_height      = 2.0;
-	const auto viewport_width       = viewport_height * aspectRatio;
-	const auto viewport_focalLength = 1.0;
-
-	const auto origin            = Vec3( 0, 0, 0 );
-	const auto offset_horizontal = Vec3( viewport_width, 0, 0 );
-	const auto offset_vertical   = Vec3( 0, viewport_height, 0 );
-	const auto offset_depth      = Vec3( 0, 0, viewport_focalLength );
-	const auto lowerLeftCorner = origin - ( offset_horizontal / 2 ) - ( offset_vertical / 2 ) - offset_depth;
+	Camera camera( aspectRatio, 2.0, 1.0, Vec3{} );
 
 	/* World */
 	HittableList object_list;
@@ -55,9 +48,7 @@ int main()
 			const auto u = ( double )x / ( image_width  - 1 );
 			const auto v = ( double )y / ( image_height - 1 );
 
-			Ray ray( origin, lowerLeftCorner + ( u * offset_horizontal ) + ( v * offset_vertical ) - origin );
-
-			WriteColor( std::cout, RayColor( ray, object_list ) );
+			WriteColor( std::cout, RayColor( camera.GetRay( u, v ), object_list ) );
 		}
 	}
 
