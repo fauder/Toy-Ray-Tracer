@@ -16,4 +16,3 @@ public:
 
 	virtual bool Scatter( const Ray& ray_in, const HitRecord& hit_record, Color& attenuation, Ray& ray_scattered ) const = 0;
 };
-
