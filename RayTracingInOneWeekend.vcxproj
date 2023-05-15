@@ -158,6 +158,7 @@ start $(TargetDir)output\image.ppm</Command>
     <ClInclude Include="HittableList.h" />
     <ClInclude Include="Lambertian.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Metal.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Utility.h" />

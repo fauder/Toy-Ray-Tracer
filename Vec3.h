@@ -103,15 +103,15 @@ public:
 		return *this;
 	}
 
-	std::ostream& Dump( std::ostream& ostream ) const
-	{
-		return ostream << data[ 0 ] << ' ' << data[ 1 ] << ' ' << data[ 2 ] << "\n";
-	}
-
 	bool IsNearZero() const
 	{
 		static constexpr double epsilon = std::numeric_limits< double >::epsilon();
 		return std::fabs( data[ 0 ] < epsilon ) && std::fabs( data[ 1 ] < epsilon ) && std::fabs( data[ 2 ] < epsilon );
+	}
+
+	std::ostream& Dump( std::ostream& ostream ) const
+	{
+		return ostream << data[ 0 ] << ' ' << data[ 1 ] << ' ' << data[ 2 ] << "\n";
 	}
 
 protected:
@@ -173,6 +173,11 @@ inline Vec3 Cross( const Vec3& left, const Vec3& right )
 		left.Z() * right.X() - left.X() * right.Z(),
 		left.X() * right.Y() - left.Y() * right.X()
 	};
+}
+
+inline Vec3 Reflect( const Vec3& vec_in, const Vec3& vec_normal )
+{
+	return vec_in - 2.0 * vec_normal * Dot( vec_in, vec_normal );
 }
 
 inline Vec3 RemapNormalTo01Range( const Vec3& normal )
