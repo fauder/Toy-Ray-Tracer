@@ -53,8 +53,8 @@ int main()
 	/* World */
 	const auto material_ground = std::make_shared< Lambertian >( Color( 0.8, 0.8, 0.0 ) );
 	const auto material_center = std::make_shared< Lambertian >( Color( 0.7, 0.3, 0.3 ) );
-	const auto material_left   = std::make_shared< Metal      >( Color( 0.8, 0.8, 0.8 ), 0.3 );
-	const auto material_right  = std::make_shared< Metal      >( Color( 0.8, 0.6, 0.2 ), 1.0 );
+	const auto material_left   = std::make_shared< Metal      >( Color( 0.8, 0.8, 0.8 ), 0.3, Color( 1, 0, 0 ), 2 );
+	const auto material_right  = std::make_shared< Metal      >( Color( 0.8, 0.6, 0.2 ), 0.0, Color( 0, 1, 1 ), 3 );
 
 	HittableList object_list;
 	object_list.Add( std::make_shared< Sphere >( Point(  0.0, -100.5, -1.0 ), 100.0, material_ground ) );

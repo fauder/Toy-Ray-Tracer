@@ -30,6 +30,10 @@ public:
 	double Y() const { return data[ 1 ]; }
 	double Z() const { return data[ 2 ]; }
 
+	double R() const { return data[ 0 ]; }
+	double G() const { return data[ 1 ]; }
+	double B() const { return data[ 2 ]; }
+
 	double& operator[]( const int i )
 	{
 		return data[ i ];
