@@ -35,7 +35,7 @@ Color RayColor( const Ray& ray, const HittableList& object_list, const int bounc
 
 	const auto direction = ray.Direction().Normalized();
 	const auto lerpBy = 0.5 * ( direction.Y() + 1.0 );
-	return ( 1.0 - lerpBy ) * Color( 1.0, 1.0, 1.0 ) + lerpBy * Color( 0.5, 0.7, 1.0 );
+	return Utility::Lerp( Color( 1.0, 1.0, 1.0 ), Color( 0.5, 0.7, 1.0 ), lerpBy );
 }
 
 int main()

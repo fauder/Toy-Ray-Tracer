@@ -69,4 +69,15 @@ namespace Utility
 						? maximum
 						: value;
 	}
+
+	inline double Saturate( const double value )
+	{
+		return Clamp( value, 0.0, 1.0 );
+	}
+
+	template< typename T >
+	inline T Lerp( const T minimum, const T maximum, const double lerp_by )
+	{
+		return ( ( 1.0 - lerp_by ) * minimum ) + lerp_by * maximum;
+	}
 }
